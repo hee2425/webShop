@@ -13,7 +13,7 @@ import com.shinhan.model.AdminService;
 import com.shinhan.vo.AdminVO;
 
 /**
- * http://localhost:9090/webShop/loginCheck
+ * http://localhost:9090/webShop
  */
 @WebServlet("/auth/loginCheck.do")  //url mapping주소 정의
 public class LoginServlet extends HttpServlet {
@@ -28,7 +28,8 @@ public class LoginServlet extends HttpServlet {
 		AdminVO admin = service.loginCheck(email, pass);
 		System.out.println(admin==null?"로그인실패":admin);
 		
-		//응답문서 만들기
+		//응답문서 만들기 header + ResopnseBody에 문자열을 출력하기
+		//<meta charset="UTF-8"> 한글 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
@@ -41,9 +42,7 @@ public class LoginServlet extends HttpServlet {
 		out.print("<h1>Login Information</h1>");
 		out.printf("<h1>이메일은 %s</h1>", email);
 		out.printf("<h1>이름은 %s</h1>", admin.getManager_name());
-		out.print("<p>왜안돼!!!!!!</p>");
-		out.print("<p>왜안돼!!!!!!</p>");
-		out.print("<p>왜안돼!!!!!!</p>");
+		
 
 	}
 

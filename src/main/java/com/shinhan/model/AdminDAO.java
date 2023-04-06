@@ -13,6 +13,26 @@ public class AdminDAO {
 		Connection conn;
 		PreparedStatement st;
 		ResultSet rs;
+		
+		public int registerAdmin(AdminVO admin) {
+			int result = 0;
+			String sql=" insert into admins(email, pass, manager_name) values(?,?,?)";
+			conn = OracleUtil.getConnection();
+			try {
+				st = conn.prepareStatement(sql);
+				st.setString(1, admin.getEmail());
+				st.setString(2, admin.getPass());
+				st.setString(3, admin.getManager_name());
+				result = st.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				OracleUtil.dbDisconnect(rs, st, conn);
+			}
+			return result;
+		}
+		
 	// 특정직원 조회
 		public AdminVO loginCheck(String email, String pass) {
 			AdminVO admin = null;

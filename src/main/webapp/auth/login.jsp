@@ -1,18 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
+
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/login.css">
+<script src='https://kit.fontawesome.com/a076d05399.js' ></script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css" type="text/css">
 
 </head>
 <body>
-<h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
+<h2>@@@Login Page@@@</h2>
 <div class="container" id="container">
   <div class="form-container sign-up-container">
-    <form action="#">
+    <form method="post" action="<%=request.getContextPath()%>/auth/signup.do">
       <h1>Create Account</h1>
       <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -20,15 +22,15 @@
         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
       </div>
       <span>or use your email for registration</span>
-      <input type="text" placeholder="Name" />
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
+      <input type="text" name="manager_name" placeholder="Name" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="password" name="pass" placeholder="Password" />
       <button>Sign Up</button>
     </form>
   </div>
   <div class="form-container sign-in-container">
-  <!-- �ּҸ� ȣ�� -->
-    <form action="loginCheck.do" method="get" enctype="application/x-www-form-urlencoded">
+  <!-- 주소를 호출 -->
+    <form action="<%=request.getContextPath()%>/auth/loginCheck.do" method="get" enctype="application/x-www-form-urlencoded">
       <h1>Sign in</h1>
       <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -58,6 +60,6 @@
     </div>
   </div>
 </div>
-<script src="../js/login.js"></script>
+<script src="<%=request.getContextPath() %>/js/login.js"></script>
 </body>
 </html>

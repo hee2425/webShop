@@ -5,6 +5,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<!-- <meta http-equiv="refresh" content="3;auth/login.jsp"> -->
 </head>
 <body>
 <h1>JSP/Servlet Project!!!!!</h1>
@@ -37,5 +38,11 @@
 		</form>
 	</li>
 </ul>
+<a href="auth/login.jsp">로그인하기(상대경로)</a><br>
+<a href="<%=request.getContextPath() %>/auth/login.jsp">로그인하기(절대경로)</a><br>
+<h2>직원관리</h2>
+<a href="<%=request.getContextPath() %>/emp/emplist.do">직원조회</a>
+<a href="<%=request.getContextPath() %>/emp/empinsert.do">직원등록</a>
+
 </body>
 </html>

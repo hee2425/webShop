@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class RequestTestServlet
  */
-@WebServlet("/requestTest")
+@WebServlet("/aa/bb/requestTest/*")
 public class RequestTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,6 +23,7 @@ public class RequestTestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("==============요청정보 얻기===============");
+		//Header + Body
 		System.out.println("getContextPath : "+request.getContextPath());
 		System.out.println("getMethod : "+request.getMethod());
 		System.out.println("getRequestURI : "+request.getRequestURI());
