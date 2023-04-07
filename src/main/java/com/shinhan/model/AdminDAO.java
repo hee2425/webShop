@@ -33,6 +33,27 @@ public class AdminDAO {
 			return result;
 		}
 		
+		public int dupCheck(String email) {
+			int count=0;
+			String sql = "select count(*) from Admins where email=?";
+			conn = OracleUtil.getConnection();
+			try {
+				st = conn.prepareStatement(sql);
+				st.setString(1, email);
+				rs = st.executeQuery();
+				
+				while (rs.next()) {
+					count = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				OracleUtil.dbDisconnect(rs, st, conn);
+			}
+			return count;
+		}
+		
 	// 특정직원 조회
 		public AdminVO loginCheck(String email, String pass) {
 			AdminVO admin = null;

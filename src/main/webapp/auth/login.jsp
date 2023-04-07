@@ -7,10 +7,40 @@
 
 <title>Insert title here</title>
 <script src='https://kit.fontawesome.com/a076d05399.js' ></script>
+<script src='<%=request.getContextPath() %>/js/jquery-3.6.4.min.js' ></script>
+<script>
+	$(function(){
+		$("#emailDupCheck").on("click",function(){
+			//page이동없이 서버에 요청보내고 응답 받기
+			$.ajax({
+				url : "emailDupCheck.do",
+				method:"get",
+				data:{"email":$("#m_email").val()},
+				success:function(responseData){
+					//alert(responseData);
+					var message = responseData==1?"이미존재":" 사용가능"
+					$("#message").text(responseData);
+					$("#message").css('color','red');
+	
+					if(responseData ==1){
+						$("m_email").val("");
+						$("m_email").focus();
+					}
+					
+				},
+				error:function(message){
+					alert(message);
+				}
+			});
+		})
+	});
+</script>
+
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css" type="text/css">
 
 </head>
 <body>
+<p>${visitor}번째 방문자입니다.</p>
 <h2>@@@Login Page@@@</h2>
 <div class="container" id="container">
   <div class="form-container sign-up-container">
@@ -23,14 +53,16 @@
       </div>
       <span>or use your email for registration</span>
       <input type="text" name="manager_name" placeholder="Name" />
-      <input type="email" name="email" placeholder="Email" />
+      <input type="email" name="email" id="m_email" placeholder="Email" />
+      <input type="button" id="emailDupCheck" value="중복체크" />
+      <span id="message" >!!</span>
       <input type="password" name="pass" placeholder="Password" />
       <button>Sign Up</button>
     </form>
   </div>
   <div class="form-container sign-in-container">
   <!-- 주소를 호출 -->
-    <form action="<%=request.getContextPath()%>/auth/loginCheck.do" method="get" enctype="application/x-www-form-urlencoded">
+    <form action="<%=request.getContextPath()%>/auth/loginCheck.do" method="post" enctype="application/x-www-form-urlencoded">
       <h1>Sign in</h1>
       <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>

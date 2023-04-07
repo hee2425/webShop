@@ -10,6 +10,10 @@ public class AdminService {
 		return dao.registerAdmin(admin);
 	}
 	
+	public int dupCheck(String email) {
+		return dao.dupCheck(email);
+	}
+	
 	public AdminVO loginCheck(String email, String pass) {
 		return dao.loginCheck(email, pass);
 	}

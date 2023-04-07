@@ -58,6 +58,14 @@
 </style>
 <script>
 	$(function(){
+		$(".btnDel").on("click", function(){
+			location.href="empDelete.do?empid="+$(this).attr("data-del");
+		});
+	});
+
+
+
+	$(function(){
 		$("thead tr th").click(function(e){
 			var trNum = $(this).closest("th").prevAll().length;
 			console.log(trNum);
@@ -119,7 +127,8 @@
 <body>
 
 	<h1>직원목록</h1>
-	<button onclick = "location.href='emp_insert.html'"
+	<div id="login-user-div" >${loginUser.getManager_name()} 님, 반갑습니다.</div>
+	<button onclick = "location.href='<%=request.getContextPath() %>/emp/empinsert.do'"
 	type="button" class="btn btn-success">신규직원등록</button>
 	
 	<button id="btn1" class="btn btn-success">짝수row 선택</button>
@@ -149,6 +158,7 @@
 	<th>매니저</th>
 	<th>커미션</th>
 	<th>부서</th>
+	<th></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -165,6 +175,7 @@
 	<td><%=emp.getManager_id() %></td>
 	<td><%=emp.getCommission_pct()%></td>
 	<td><%=emp.getDepartment_id()%></td>
+	<td><button class="btnDel" data-del="<%=emp.getEmployee_id() %>">삭제</button></td>
 	</tr>
 	<%} %>
 	</tbody>
