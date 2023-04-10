@@ -63,6 +63,20 @@
 		});
 	});
 
+	$(function(){
+		$("#btnLogout").on("click", function(){
+			$.ajax({
+				url:"../auth/logout.do",
+				success:function(){
+					alert("로그아웃 되었습니다...");
+				},
+				error:function(){
+					alert(message);
+					console.log(message);
+				}
+			});
+		});
+	});
 
 
 	$(function(){
@@ -128,12 +142,16 @@
 
 	<h1>직원목록</h1>
 	<div id="login-user-div" >${loginUser.getManager_name()} 님, 반갑습니다.</div>
+	 <button id="btnLogout" style="margin-top:3px">로그아웃</button> 
+	<!-- <input type="button" id="btnLogout" value="로그아웃"> -->
 	<button onclick = "location.href='<%=request.getContextPath() %>/emp/empinsert.do'"
 	type="button" class="btn btn-success">신규직원등록</button>
-	
+	<br><hr>
 	<button id="btn1" class="btn btn-success">짝수row 선택</button>
 	<button id="btn2" class="btn btn-success">이름 s로 시작하는 직원</button>
 	<button id="btn3" class="btn btn-success">s문자 포함</button>
+	
+	
 	<select>
 		<option value="IT_PROG">IT_PROG</option>
 		<option>AD_VP</option>

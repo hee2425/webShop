@@ -13,24 +13,28 @@ import javax.servlet.http.HttpServletResponse;
 import com.shinhan.model.EmpService;
 import com.shinhan.vo.EmpVO;
 
-/**
- * Servlet implementation class EmpListServlet
- */
-@WebServlet("/emp/emplist.do")  //jsp페이지와 같은 폴더에 있는 느낌으로 주소 작성
+@WebServlet("/emp/emplist.do")
 public class EmpListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*
+		 * HttpSession session = request.getSession(); AdminVO user = (AdminVO)
+		 * session.getAttribute("loginUser"); if(user == null) {
+		 * response.sendRedirect("../auth/loginCheck.do"); return; }
+		 * System.out.println("user: " + user);
+		 */
+		
 		EmpService service = new EmpService();
-		List<EmpVO> emplist = service.selectAll();
+		List<EmpVO> empList = service.selectAll();
 		
-		//request가 유지되는 동안 저장한다.
-		request.setAttribute("empAll", emplist);  //값을 저장
+		// request가 유지되는 동안 저장한다.
+		request.setAttribute("empAll", empList);
 		
-		//위임(내가 요청을 받고 응답은 다른 페이지가 한다.)
+		// 위임 (내가 요청을 받고 응답은 다른 페이지가 한다.)
 		RequestDispatcher rd = request.getRequestDispatcher("empSelect.jsp");
 		rd.forward(request, response);
+		
 	}
 
 }

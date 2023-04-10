@@ -10,6 +10,7 @@
 <script src='<%=request.getContextPath() %>/js/jquery-3.6.4.min.js' ></script>
 <script>
 	$(function(){
+		
 		$("#emailDupCheck").on("click",function(){
 			//page이동없이 서버에 요청보내고 응답 받기
 			$.ajax({
@@ -74,6 +75,7 @@
       <input type="password" name="pass" placeholder="Password" />
       <a href="#">Forgot your password?</a>
       <button>Sign In</button>
+      
       <!-- <input type="submit" value="Sign In"> -->
     </form>
   </div>
