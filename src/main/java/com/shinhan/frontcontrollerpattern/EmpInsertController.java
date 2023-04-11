@@ -1,53 +1,36 @@
-package com.shinhan.controller;
+package com.shinhan.frontcontrollerpattern;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
+import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.shinhan.model.EmpService;
 import com.shinhan.util.DateUtil;
 import com.shinhan.vo.EmpVO;
 
-/**
- * Servlet implementation class empDetailServlet
- */
-//@WebServlet("/emp/empDetail.do")
-public class empDetailServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//상세 보기
-		int empid = Integer.parseInt(request.getParameter("empid"));
-		
-		EmpService service = new EmpService();
-		EmpVO emp = service.selectById(empid);
-		
-		request.setAttribute("emp", emp);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("empDetail.jsp");
-		rd.forward(request, response);
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//상세 보기
-		EmpVO emp = makeEmp(request);
-		
-		EmpService service = new EmpService();
-		String message = service.empUpdate(emp);
-		
-		response.sendRedirect("emplist.do");
+public class EmpInsertController implements CommonControllerInterface {
+
+	@Override
+	public String execute(Map<String, Object> data) throws Exception {
+		String page = "empInsert.jsp";
+		String method = (String)data.get("method");
+		HttpServletRequest request = (HttpServletRequest)data.get("request");
+		if(method.equals("POST")) {
+			EmpVO emp = makeEmp(request);
+			EmpService service = new EmpService();
+			String result = service.empInsert(emp);
+			
+			//재요청하기:Browser로 내려가서 새로운 요청으로 가기 
+			page = ("redirect:emplist.do");
+		}
+		return page;
 	}
 	
 	private EmpVO makeEmp(HttpServletRequest request) throws UnsupportedEncodingException {
-		//필터에서 수행하고 옴 request.setCharacterEncoding("utf-8");
-		int empid = Integer.parseInt(request.getParameter("employee_id"));
+		//필터에서 수행하고 옴request.setCharacterEncoding("utf-8");
+		//int empid = Integer.parseInt(request.getParameter("employee_id"));
 		String first_name = request.getParameter("first_name");
 		String last_name = request.getParameter("last_name");
 		String email = request.getParameter("email");
@@ -63,7 +46,7 @@ public class empDetailServlet extends HttpServlet {
 		emp.setCommission_pct(commission_pct);
 		emp.setDepartment_id(department_id);
 		emp.setEmail(email);
-		emp.setEmployee_id(empid);
+		//emp.setEmployee_id(empid);
 		emp.setFirst_name(first_name);
 		emp.setHire_date(hire_date);
 		emp.setJob_id(job_id);
@@ -76,7 +59,5 @@ public class empDetailServlet extends HttpServlet {
 		return emp;
 		
 	}
-
-	
 
 }

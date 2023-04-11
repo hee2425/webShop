@@ -19,8 +19,8 @@
 				data:{"email":$("#m_email").val()},
 				success:function(responseData){
 					//alert(responseData);
-					var message = responseData==1?"이미존재":" 사용가능"
-					$("#message").text(responseData);
+					var message = responseData==1?"이미존재합니다..":" 사용 가능합니다!"
+					$("#message").text(message);
 					$("#message").css('color','red');
 	
 					if(responseData ==1){

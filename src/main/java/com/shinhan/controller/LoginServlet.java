@@ -3,11 +3,12 @@ package com.shinhan.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,20 +20,27 @@ import com.shinhan.vo.AdminVO;
 /**
  * http://localhost:9090/webShop
  */
-@WebServlet("/auth/loginCheck.do")  //url mapping주소 정의
+//@WebServlet("/auth/loginCheck.do")  //url mapping주소 정의
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	//List<AdminVO> userList = new ArrayList<>();
+	ServletContext app ;
+	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletContext app = request.getServletContext();
-		Object obj = app.getAttribute("visitor");
-		int count = 1;
-		if(obj != null) {
-			count = (Integer)obj;
-			count++;
-		}
-		
-		app.setAttribute("visitor", count);
+//		ServletContext app = request.getServletContext();
+//		Object obj = app.getAttribute("visitor");
+//		int count = 1;
+//		if(obj != null) {
+//			count = (Integer)obj;
+//			count++;
+//		}
+//		app.setAttribute("visitor", count);
+		app = getServletContext();
+		String DB_userid = app.getInitParameter("DB_userid");
+		System.out.println(DB_userid);
+		String DB_userid2 = app.getInitParameter("DB_userid2");
 		
 		RequestDispatcher rd;
 		rd = request.getRequestDispatcher("login.jsp");
@@ -48,6 +56,26 @@ public class LoginServlet extends HttpServlet {
 		AdminService service = new AdminService();
 		AdminVO admin = service.loginCheck(email, pass);
 		System.out.println(admin==null?"로그인실패":admin);
+		
+		
+		Object obj = app.getAttribute("userList");
+		List<AdminVO> userList = null;
+		if(admin!=null) {
+			if(obj == null) {
+				userList = new ArrayList<>();
+			}else {
+				userList = (List<AdminVO>)obj;
+			}
+			userList.add(admin);
+			app.setAttribute("userList", userList);
+			System.out.println("-----------------로그인한 List-------------------------");
+			for(AdminVO vo:userList) {
+				System.out.println(vo);
+			}
+			System.out.println("--------------------------------------------------------");
+			
+		}
+		
 		
 		//응답문서 만들기 header + ResopnseBody에 문자열을 출력하기
 		//<meta charset="UTF-8"> 한글 

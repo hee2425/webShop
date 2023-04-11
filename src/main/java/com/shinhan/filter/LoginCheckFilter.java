@@ -1,4 +1,4 @@
-package com.shinhan.controller2;
+package com.shinhan.filter;
 
 import java.io.IOException;
 
@@ -41,7 +41,9 @@ public class LoginCheckFilter extends HttpFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse rep = (HttpServletResponse)response;
 		System.out.println("req.getServletPath() : "+req.getServletPath());
-		if(req.getRequestURI().equals(req.getContextPath()+"/auth/loginCheck.do")) {
+		if(req.getRequestURI().equals(req.getContextPath()+"/auth/loginCheck.do")||
+				req.getServletPath().equals("/auth/signup.do")||
+				req.getServletPath().equals("/auth/emailDupCheck.do")) {
 			
 		}else {
 			HttpSession session = req.getSession();

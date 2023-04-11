@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
+<%
+//자바코드 작성 : 스크립트릿 ....service의 코드에 삽입된다.
+String subject = "jsp코드";
+
+int age = Integer.parseInt(request.getParameter("age"));
+%>
+<%!
+//자바코드 작성...선언부...별도의 service에 삽입된다.
+int score = 100;
+public int add(int a, int b){
+	return a+b;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +30,12 @@
 </style>
 <body>
 <h1>직원 정보 입력</h1>
+<%-- JSP주석 --%>
+<!-- service의 out.print에 들어간다. -->
+subject: <%=subject %><br>
+score : <%=score %><br>
+add함수 : <%=add(100,200) %><br>
+age : <%=age %><br>
 <form method="post" class="all" action = "<%=request.getContextPath() %>/emp/empinsert.do">
 <fieldset>
 	<table>

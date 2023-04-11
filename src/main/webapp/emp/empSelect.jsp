@@ -1,11 +1,11 @@
 
 <%@page import="com.shinhan.vo.EmpVO"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%
 	List<EmpVO> emplist = (List<EmpVO>)request.getAttribute("empAll");  
-	//¼­ºí¸´¿¡¼­ ÀĞ¾î¿È
+	//ì„œë¸”ë¦¿ì—ì„œ ì½ì–´ì˜´
 %>
 
 <!DOCTYPE html>
@@ -68,7 +68,7 @@
 			$.ajax({
 				url:"../auth/logout.do",
 				success:function(){
-					alert("·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù...");
+					alert("ë¡œê·¸ì•„ì›ƒ ë˜ì—ˆìŠµë‹ˆë‹¤...");
 				},
 				error:function(){
 					alert(message);
@@ -86,9 +86,9 @@
 			var a = $("tbody tr").each(function(index, item){
 			var col = $(item).find("td:nth-child(" + (trNum+1) + ")");
 			console.log(col);
-			//µÇµ¹¸®±â(±âÁ¸¼±ÅÃÀ» clear)
+			//ë˜ëŒë¦¬ê¸°(ê¸°ì¡´ì„ íƒì„ clear)
 			$(item).find("td").css("background-color", "white");
-			//½Å±Ô¼±ÅÃÀÇ »ö±ò ¹Ù²Ù±â
+			//ì‹ ê·œì„ íƒì˜ ìƒ‰ê¹” ë°”ê¾¸ê¸°
 			$(col).css("background-color", "lightgray");
 			});
 		});
@@ -125,7 +125,7 @@
 		$.each(arr, function(index, item){
 			str += "<option>" + item + "</option>";
 		});
-		$("#jobs").html(str);  //html() : jquery ÇÔ¼ö, innerHTMLÀº 
+		$("#jobs").html(str);  //html() : jquery í•¨ìˆ˜, innerHTMLì€ 
 		
 		
 		$("select").change(function(){
@@ -140,16 +140,17 @@
 </head>
 <body>
 
-	<h1>Á÷¿ø¸ñ·Ï</h1>
-	<div id="login-user-div" >${loginUser.getManager_name()} ´Ô, ¹İ°©½À´Ï´Ù.</div>
-	 <button id="btnLogout" style="margin-top:3px">·Î±×¾Æ¿ô</button> 
-	<!-- <input type="button" id="btnLogout" value="·Î±×¾Æ¿ô"> -->
+	<h1>ì§ì›ëª©ë¡</h1>
+	<!-- include ë””ë ‰í‹°ë¸ŒëŠ” ì†ŒìŠ¤ë¥¼ í•©ì³ì„œ ì»´íŒŒì¼í•œë‹¤. -->
+	<%@ include file="../common/header.jsp" %>
+		 <button id="btnLogout" style="margin-top:3px">ë¡œê·¸ì•„ì›ƒ</button> 
+	<!-- <input type="button" id="btnLogout" value="ë¡œê·¸ì•„ì›ƒ"> -->
 	<button onclick = "location.href='<%=request.getContextPath() %>/emp/empinsert.do'"
-	type="button" class="btn btn-success">½Å±ÔÁ÷¿øµî·Ï</button>
+	type="button" class="btn btn-success">ì‹ ê·œì§ì›ë“±ë¡</button>
 	<br><hr>
-	<button id="btn1" class="btn btn-success">Â¦¼örow ¼±ÅÃ</button>
-	<button id="btn2" class="btn btn-success">ÀÌ¸§ s·Î ½ÃÀÛÇÏ´Â Á÷¿ø</button>
-	<button id="btn3" class="btn btn-success">s¹®ÀÚ Æ÷ÇÔ</button>
+	<button id="btn1" class="btn btn-success">ì§ìˆ˜row ì„ íƒ</button>
+	<button id="btn2" class="btn btn-success">ì´ë¦„ së¡œ ì‹œì‘í•˜ëŠ” ì§ì›</button>
+	<button id="btn3" class="btn btn-success">së¬¸ì í¬í•¨</button>
 	
 	
 	<select>
@@ -165,17 +166,17 @@
 	<table>
 	<thead>
 	<tr>
-	<th>Á÷¿ø¹øÈ£</th>
-	<th>ÀÌ¸§</th>
-	<th>¼º</th>
-	<th>ÀÌ¸ŞÀÏ</th>
-	<th>±Ş¿©</th>
-	<th>ÀÔ»çÀÏ</th>
-	<th>ÀüÈ­¹øÈ£</th>
-	<th>Á÷Ã¥</th>
-	<th>¸Å´ÏÀú</th>
-	<th>Ä¿¹Ì¼Ç</th>
-	<th>ºÎ¼­</th>
+	<th>ì§ì›ë²ˆí˜¸</th>
+	<th>ì´ë¦„</th>
+	<th>ì„±</th>
+	<th>ì´ë©”ì¼</th>
+	<th>ê¸‰ì—¬</th>
+	<th>ì…ì‚¬ì¼</th>
+	<th>ì „í™”ë²ˆí˜¸</th>
+	<th>ì§ì±…</th>
+	<th>ë§¤ë‹ˆì €</th>
+	<th>ì»¤ë¯¸ì…˜</th>
+	<th>ë¶€ì„œ</th>
 	<th></th>
 	</tr>
 	</thead>
@@ -193,7 +194,7 @@
 	<td><%=emp.getManager_id() %></td>
 	<td><%=emp.getCommission_pct()%></td>
 	<td><%=emp.getDepartment_id()%></td>
-	<td><button class="btnDel" data-del="<%=emp.getEmployee_id() %>">»èÁ¦</button></td>
+	<td><button class="btnDel" data-del="<%=emp.getEmployee_id() %>">ì‚­ì œ</button></td>
 	</tr>
 	<%} %>
 	</tbody>
