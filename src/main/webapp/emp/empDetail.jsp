@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
 <title>직원 상세 보기</title>
+	<%@ include file="../common/commonfiles.jsp" %>
 </head>
 <style>
 	#container{
@@ -33,7 +34,9 @@
 <%-- ${} : getAttribute()
 	${emp} <%=request.getAttribute("emp")%>
 	${emp.employee_id} <%=request.getAttribute()%> --%>
+
 <div id="container">
+<jsp:include page="../common/header.jsp"></jsp:include>
 <h1>직원 상세 보기</h1>
 <form method="post" class="all" action = "<%=request.getContextPath() %>/emp/empDetail.do">
 <fieldset>

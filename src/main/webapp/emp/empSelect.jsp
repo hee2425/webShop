@@ -1,22 +1,26 @@
 
 <%@page import="com.shinhan.vo.EmpVO"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%
-	List<EmpVO> emplist = (List<EmpVO>)request.getAttribute("empAll");  
-	//서블릿에서 읽어옴
-%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<%-- <jsp:include page="${path}/common/commonfiles.jsp"></jsp:include> --%>
+<%@ include file="../common/commonfiles.jsp" %>
+
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/kopubbatang.css);
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+	body {
+		width: 80%;
+		margin : 0px auto;
+	}
 	h1{
 		font-family: 'KoPub Batang', serif;
 		text-align: center;
@@ -63,20 +67,7 @@
 		});
 	});
 
-	$(function(){
-		$("#btnLogout").on("click", function(){
-			$.ajax({
-				url:"../auth/logout.do",
-				success:function(){
-					alert("로그아웃 되었습니다...");
-				},
-				error:function(){
-					alert(message);
-					console.log(message);
-				}
-			});
-		});
-	});
+	
 
 
 	$(function(){
@@ -141,11 +132,21 @@
 <body>
 
 	<h1>직원목록</h1>
+	
 	<!-- include 디렉티브는 소스를 합쳐서 컴파일한다. -->
-	<%@ include file="../common/header.jsp" %>
-		 <button id="btnLogout" style="margin-top:3px">로그아웃</button> 
+	<%--include지시자: 합쳐서 컴파일 <%@ include file="../common/header.jsp" %> --%>
+	<!--include action tag이용 : 컴파일하고 합침  -->
+	<jsp:include page="../common/header.jsp"></jsp:include>
+	
+	 <form method="post"  action="${path}/downloadTest/result.jsp" >
+	 	<input type=hidden  name="param1" value="pf.jpg" /> <br>
+	 	<input type=hidden  name="param2" value="umbrella.jpg" /> <br>
+   		<input type ="submit" value="이미지 다운로드">	 
+ 	</form>
+ 	
+	<%-- <p style="color : blue"><%=company %></p> --%>
 	<!-- <input type="button" id="btnLogout" value="로그아웃"> -->
-	<button onclick = "location.href='<%=request.getContextPath() %>/emp/empinsert.do'"
+	<button onclick = "location.href='${path}/emp/empinsert.do'"
 	type="button" class="btn btn-success">신규직원등록</button>
 	<br><hr>
 	<button id="btn1" class="btn btn-success">짝수row 선택</button>
@@ -166,11 +167,13 @@
 	<table>
 	<thead>
 	<tr>
+	<th>순서</th>
 	<th>직원번호</th>
 	<th>이름</th>
 	<th>성</th>
 	<th>이메일</th>
 	<th>급여</th>
+	<th>누적급여</th>
 	<th>입사일</th>
 	<th>전화번호</th>
 	<th>직책</th>
@@ -181,22 +184,32 @@
 	</tr>
 	</thead>
 	<tbody>
-	<%for(EmpVO emp:emplist){ %>
+	<!-- for(EmpVO emp:empAll) -->
+	<c:set var="totalSalary" value="0"/>
+	<c:forEach items="${empAll }" var="emp" varStatus="status">
+	<c:set var="totalSalary" value="${totalSalary+emp.salary}"/>
 	<tr>
-	<td class="index"><a href="empDetail.do?empid=<%=emp.getEmployee_id() %>"><%=emp.getEmployee_id() %></a></td>
-	<td><a href="empDetail.do?empid=<%=emp.getEmployee_id() %>"><%=emp.getFirst_name() %></a></td>
-	<td><%=emp.getLast_name() %></td>
-	<td><%=emp.getEmail() %></td>
-	<td><%=emp.getSalary() %></td>
-	<td><%=emp.getHire_date() %></td>
-	<td><%=emp.getPhone_number() %></td>
-	<td><%=emp.getJob_id()%></td>
-	<td><%=emp.getManager_id() %></td>
-	<td><%=emp.getCommission_pct()%></td>
-	<td><%=emp.getDepartment_id()%></td>
-	<td><button class="btnDel" data-del="<%=emp.getEmployee_id() %>">삭제</button></td>
+	<td style="background-color: ${status.first||status.last?'lightyellow':'white'};">${status.count}</td>
+	<td class="index"><a href="empDetail.do?empid=${emp.employee_id }">${emp.employee_id }</a></td>
+	<td ><a style="color:${fn:length(emp.first_name)>3?'red':'blue'}" href="empDetail.do?empid=${emp.employee_id }">${emp.first_name }</a></td>
+	<td>${emp.last_name }</td>
+	<td>${emp.email }---
+		${fn:substring(emp.email,0,fn:indexOf(emp.email,"@"))}	
+	</td>
+	<td>
+		<fmt:formatNumber value="${emp.salary}" groupingUsed="true"/></td>
+	<td>${totalSalary}</td>
+	<td>
+		<fmt:formatDate value="${emp.hire_date }"  pattern="yyyy/MM/dd"/></td>
+	<td>${emp.phone_number}</td>
+	<td>${emp.job_id}</td>
+	<td>${emp.manager_id }</td>
+	<td>
+		<fmt:formatNumber value="${emp.commission_pct}" type="percent" /></td>
+	<td>${emp.department_id}</td>
+	<td><button class="btnDel" data-del="${emp.employee_id }">삭제</button></td>
 	</tr>
-	<%} %>
+	</c:forEach>
 	</tbody>
 	</table>
 

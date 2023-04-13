@@ -4,7 +4,7 @@
 //자바코드 작성 : 스크립트릿 ....service의 코드에 삽입된다.
 String subject = "jsp코드";
 
-int age = Integer.parseInt(request.getParameter("age"));
+//int age = Integer.parseInt(request.getParameter("age"));
 %>
 <%!
 //자바코드 작성...선언부...별도의 service에 삽입된다.
@@ -16,10 +16,12 @@ public int add(int a, int b){
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<%@ include file="../common/commonfiles.jsp" %>
 <title>직원 등록</title>
 </head>
 <style>
+
+
 	tr {
 		border : 1px;
 	}
@@ -35,7 +37,8 @@ public int add(int a, int b){
 subject: <%=subject %><br>
 score : <%=score %><br>
 add함수 : <%=add(100,200) %><br>
-age : <%=age %><br>
+
+<%@ include file="../common/header.jsp" %>
 <form method="post" class="all" action = "<%=request.getContextPath() %>/emp/empinsert.do">
 <fieldset>
 	<table>

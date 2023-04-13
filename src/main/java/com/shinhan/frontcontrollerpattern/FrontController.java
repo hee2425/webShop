@@ -30,8 +30,21 @@ public class FrontController extends HttpServlet {
 		data.put("method", request.getMethod());  //get인지 post인지 모르니까 받아옴
 		data.put("request", request);
 		switch (path) {
+		case "/download.do":
+			data.put("response", response);
+			controller = new DownloadController();
+			break;
+		case "/upload.do":
+			controller = new UploadController();
+			break;
+		case "/jstl.do":
+			controller = new JSTLController();
+			break;
 		case "/auth/loginCheck.do":
 			controller = new LoginController();
+			break;
+		case "/auth/logout.do":
+			controller = new LogoutController();
 			break;
 		case "/auth/signup.do":
 			controller = new SignUpController();
@@ -65,7 +78,6 @@ public class FrontController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 		
 		//auth/login.jsp

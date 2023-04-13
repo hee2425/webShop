@@ -16,13 +16,14 @@ public class AdminDAO {
 		
 		public int registerAdmin(AdminVO admin) {
 			int result = 0;
-			String sql=" insert into admins(email, pass, manager_name) values(?,?,?)";
+			String sql=" insert into admins(email, pass, manager_name,pic) values(?,?,?,?)";
 			conn = OracleUtil.getConnection();
 			try {
 				st = conn.prepareStatement(sql);
 				st.setString(1, admin.getEmail());
 				st.setString(2, admin.getPass());
 				st.setString(3, admin.getManager_name());
+				st.setString(4, admin.getPic());
 				result = st.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -57,7 +58,7 @@ public class AdminDAO {
 	// 특정직원 조회
 		public AdminVO loginCheck(String email, String pass) {
 			AdminVO admin = null;
-			String sql = "select manager_name from Admins where email=? and pass=?";
+			String sql = "select * from Admins where email=? and pass=?";
 			conn = OracleUtil.getConnection();
 			try {
 				st = conn.prepareStatement(sql);
@@ -66,7 +67,7 @@ public class AdminDAO {
 				rs = st.executeQuery();
 				
 				while (rs.next()) {
-					admin = new AdminVO(email, rs.getString(1), pass);
+					admin = new AdminVO(email, rs.getString(1), pass,rs.getString("pic"));
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

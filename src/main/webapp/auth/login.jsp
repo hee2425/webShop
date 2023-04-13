@@ -45,8 +45,8 @@
 <h2>@@@Login Page@@@</h2>
 <div class="container" id="container">
   <div class="form-container sign-up-container">
-    <form method="post" action="<%=request.getContextPath()%>/auth/signup.do">
-      <h1>Create Account</h1>
+    <form method="post" enctype="multipart/form-data"  action="<%=request.getContextPath()%>/auth/signup.do">
+      <h3>Create Account</h3>
       <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -58,6 +58,7 @@
       <input type="button" id="emailDupCheck" value="중복체크" />
       <span id="message" >!!</span>
       <input type="password" name="pass" placeholder="Password" />
+      <input type = "file" name="pic"/>
       <button>Sign Up</button>
     </form>
   </div>
