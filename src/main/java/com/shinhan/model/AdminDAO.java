@@ -67,7 +67,11 @@ public class AdminDAO {
 				rs = st.executeQuery();
 				
 				while (rs.next()) {
-					admin = new AdminVO(email, rs.getString(1), pass,rs.getString("pic"));
+					admin = new AdminVO();
+					admin.setEmail(email);
+					admin.setManager_name(rs.getString("manager_name"));
+					admin.setPass(pass);
+					admin.setPic(rs.getString("pic"));
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

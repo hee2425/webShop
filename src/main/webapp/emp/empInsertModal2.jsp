@@ -1,45 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
-<%
-//자바코드 작성 : 스크립트릿 ....service의 코드에 삽입된다.
-String subject = "jsp코드";
-
-//int age = Integer.parseInt(request.getParameter("age"));
-%>
-<%!
-//자바코드 작성...선언부...별도의 service에 삽입된다.
-int score = 100;
-public int add(int a, int b){
-	return a+b;
-}
-%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="../common/commonfiles.jsp" %>
-<title>직원 등록</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
-<style>
-
-
-	tr {
-		border : 1px;
-	}
-	h1{
-		font-size : 20px;
-		font-style: italic;
-	}
-</style>
 <body>
-<h1>직원 정보 입력</h1>
-<%-- JSP주석 --%>
-<!-- service의 out.print에 들어간다. -->
-subject: <%=subject %><br>
-score : <%=score %><br>
-add함수 : <%=add(100,200) %><br>
-
-<%@ include file="../common/header.jsp" %>
-<form method="post" class="all" action = "<%=request.getContextPath() %>/emp/empinsert.do">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" class="all" action = "${path}/emp/empinsert.do">
 <fieldset>
 	<table>
 	<tr>
@@ -87,13 +63,20 @@ add함수 : <%=add(100,200) %><br>
 		<td><input type="number" name="department_id"><br></td>
 	</tr>
 	<tr>
-		<td  clospan="2">
+		<td clospan="2">
 			<input type="submit" value="직원등록">
 		</td>
 	</tr>
 	</table>
 	</fieldset>
 	</form>
-	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

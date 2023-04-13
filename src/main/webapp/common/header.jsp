@@ -14,7 +14,7 @@ String company = "신한금융소프트아카데미";
 	<c:if test="${loginUser!=null }">
 	<img  src="${path}/uploads/${loginUser.pic}" width="50" height="50" border-radius="30%"/>
 	<div id="login-user-div" >${loginUser==null?"guest":loginUser.manager_name} 님, 반갑습니다.</div>
-		 <button id="btnLogout" style="margin-top:3px">로그아웃</button> 
+		 <button id="btnLogout" style="margin-top:3px; background-color:tomato;">로그아웃</button> 
 		 
 	</c:if>
 	<c:if test="${loginUser==null }">

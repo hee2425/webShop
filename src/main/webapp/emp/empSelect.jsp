@@ -6,6 +6,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,15 +141,19 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	
 	 <form method="post"  action="${path}/downloadTest/result.jsp" >
-	 	<input type=hidden  name="param1" value="pf.jpg" /> <br>
-	 	<input type=hidden  name="param2" value="umbrella.jpg" /> <br>
-   		<input type ="submit" value="이미지 다운로드">	 
+	 	<input type=hidden  name="param1" value="pf.jpg"/>
+	 	<input type=hidden  name="param2" value="umbrella.jpg" />
+   		<input type ="submit" value="이미지 다운로드" style="border-radius: 10px;padding: 12px 12px;">	 
  	</form>
  	
 	<%-- <p style="color : blue"><%=company %></p> --%>
 	<!-- <input type="button" id="btnLogout" value="로그아웃"> -->
 	<button onclick = "location.href='${path}/emp/empinsert.do'"
-	type="button" class="btn btn-success">신규직원등록</button>
+	type="button" class="btn btn-success" style="margin-top:10px">신규직원등록</button>
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+	data-bs-target="#exampleModal" data-bs-whatever="@mdo">Modal이용 직원등록</button>
+	<%@ include file="empInsertModal2.jsp"%>
+	
 	<br><hr>
 	<button id="btn1" class="btn btn-success">짝수row 선택</button>
 	<button id="btn2" class="btn btn-success">이름 s로 시작하는 직원</button>
