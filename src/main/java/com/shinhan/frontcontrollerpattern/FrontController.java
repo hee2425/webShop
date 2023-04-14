@@ -30,6 +30,12 @@ public class FrontController extends HttpServlet {
 		data.put("method", request.getMethod());  //get인지 post인지 모르니까 받아옴
 		data.put("request", request);
 		switch (path) {
+		case "/site-result/layout.do":
+			controller = new layoutTestController();
+			break;
+		case "/site-result/jobsAjax.do":
+			controller = new jobsAjaxController();
+			break;
 		case "/download.do":
 			data.put("response", response);
 			controller = new DownloadController();

@@ -68,7 +68,13 @@ add함수 : <%=add(100,200) %><br>
 	</tr>
 	<tr>
 		<td>7. job_id</td>
-		<td><input type="text" name="job_id" required><br></td>
+		<td>
+			<select name="job_id">
+				<c:forEach items="${jobList}" var="job">
+					<option value="${job.job_id }">${job.job_title}</option>				
+				</c:forEach>
+			</select>
+		<br></td>
 	</tr>
 	<tr>
 		<td>8. salary</td>
@@ -80,11 +86,23 @@ add함수 : <%=add(100,200) %><br>
 	</tr>
 	<tr>
 		<td>10. manager_id</td>
-		<td><input type="number" name="manager_id"><br></td>
+		<td>
+			<select name="manager_id">
+				<c:forEach items="${managerList }" var="manager">
+					<option value="${manager.employee_id }">${manager.first_name }--${manager.last_name}</option>
+				</c:forEach>
+			</select>		
+		<br></td>
 	</tr>
 	<tr>
 		<td>11. department_id</td>
-		<td><input type="number" name="department_id"><br></td>
+		<td>
+			<select name="department_id">
+				<c:forEach items="${deptList }" var="dept" varStatus="status">
+					<option value="${dept.department_id }">${status.count}:${dept.department_name }</option>
+				</c:forEach>
+			</select>
+		<br></td>
 	</tr>
 	<tr>
 		<td  clospan="2">

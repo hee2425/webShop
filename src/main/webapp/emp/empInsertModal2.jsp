@@ -1,12 +1,21 @@
+<%@page import="com.shinhan.model.CompanyService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <% 
+    CompanyService conService = new CompanyService();
+	request.setAttribute("deptList", conService.deptSelectAll());
+	request.setAttribute("managerList", conService.managerSelectAll());
+	request.setAttribute("jobList", conService.jobSelectAll());
+    %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="../common/commonfiles.jsp" %>
 </head>
 <body>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -44,7 +53,13 @@
 	</tr>
 	<tr>
 		<td>7. job_id</td>
-		<td><input type="text" name="job_id" required><br></td>
+		<td>
+			<select name="job_id">
+				<c:forEach items="${jobList}" var="job">
+					<option value="${job.job_id }" ${emp.job_id==job.job_id?"selected":"" }>${job.job_title}</option>				
+				</c:forEach>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td>8. salary</td>
@@ -56,11 +71,23 @@
 	</tr>
 	<tr>
 		<td>10. manager_id</td>
-		<td><input type="number" name="manager_id"><br></td>
+		<td>
+			<select name="manager_id">
+				<c:forEach items="${managerList }" var="manager">
+					<option value="${manager.employee_id }" ${emp.manager_id==manager.employee_id?"selected":"" } >${manager.first_name }--${manager.last_name}</option>
+				</c:forEach>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td>11. department_id</td>
-		<td><input type="number" name="department_id"><br></td>
+		<td>
+			<select name="department_id">
+				<c:forEach items="${deptList }" var="dept">
+					<option value="${dept.department_id }" ${emp.department_id==dept.department_id?"selected":"" } >${dept.department_name }</option>
+				</c:forEach>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td clospan="2">

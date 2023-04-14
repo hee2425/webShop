@@ -36,8 +36,9 @@
 	${emp.employee_id} <%=request.getAttribute()%> --%>
 
 <div id="container">
-<jsp:include page="../common/header.jsp"></jsp:include>
+<%-- <jsp:include page="../common/header.jsp"></jsp:include> --%>
 <h1>직원 상세 보기</h1>
+<%@ include file="../common/header.jsp" %>
 <form method="post" class="all" action = "<%=request.getContextPath() %>/emp/empDetail.do">
 <fieldset>
 	<table>
@@ -67,7 +68,13 @@
 	</tr>
 	<tr>
 		<td>7. job_id</td>
-		<td><input type="text" name="job_id" required value=${emp.job_id}><br></td>
+		<td>
+			<select name="job_id">
+				<c:forEach items="${jobList}" var="job">
+					<option value="${job.job_id }" ${emp.job_id==job.job_id?"selected":"" }>${job.job_title}</option>				
+				</c:forEach>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td>8. salary</td>
@@ -79,11 +86,26 @@
 	</tr>
 	<tr>
 		<td>10. manager_id</td>
-		<td><input type="number" name="manager_id" value=${emp.manager_id}><br></td>
+		<td>
+			<select name="manager_id">
+				<c:forEach items="${managerList }" var="manager">
+					<option value="${manager.employee_id }" ${emp.manager_id==manager.employee_id?"selected":"" } >${manager.first_name }--${manager.last_name}</option>
+				</c:forEach>
+			</select>	
+		</td>
 	</tr>
 	<tr>
 		<td>11. department_id</td>
-		<td><input type="number" name="department_id" value=${emp.department_id}><br></td>
+		<td>
+			<select name="department_id">
+				<c:forEach items="${deptList }" var="dept">
+					<option value="${dept.department_id }" ${emp.department_id==dept.department_id?"selected":"" } >${dept.department_name }</option>
+				</c:forEach>
+			</select>
+			
+			
+			
+		</td>
 	</tr>
 	<tr>
 		<td clospan="2">

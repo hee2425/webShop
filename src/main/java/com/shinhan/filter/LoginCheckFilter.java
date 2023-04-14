@@ -44,7 +44,10 @@ public class LoginCheckFilter extends HttpFilter implements Filter {
 		if(req.getRequestURI().equals(req.getContextPath()+"/auth/loginCheck.do")||
 				req.getServletPath().equals("/auth/signup.do")||
 				req.getServletPath().equals("/auth/emailDupCheck.do")||
-				req.getServletPath().equals("/jstl.do")) {
+				req.getServletPath().equals("/jstl.do")||
+				req.getServletPath().equals("/site-result/layout.do")||
+				req.getServletPath().equals("/site-result/jobsAjax.do")) {
+			//
 			
 		}else {
 			HttpSession session = req.getSession();
